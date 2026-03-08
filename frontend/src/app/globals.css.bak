@@ -1,0 +1,306 @@
+@import "tailwindcss";
+
+/* ── Nixtio-inspired Design Tokens ───────────────────── */
+
+:root {
+  --font-sans: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Deep navy palette */
+  --bg-root: #080a12;
+  --bg-surface: #0e1019;
+  --bg-elevated: #161924;
+  --bg-inset: #0b0d15;
+  --bg-card: #131620;
+
+  /* Subtle borders */
+  --border-default: #1e2236;
+  --border-muted: #171a28;
+  --border-subtle: #12141f;
+
+  /* Text hierarchy */
+  --text-primary: #eaecf5;
+  --text-secondary: #9497ad;
+  --text-muted: #6b6f85;
+  --text-faint: #454862;
+
+  /* Vibrant green accent */
+  --accent: #00e68a;
+  --accent-muted: #00cc7a;
+  --accent-subtle: rgba(0, 230, 138, 0.08);
+  --accent-glow: rgba(0, 230, 138, 0.15);
+
+  /* Purple secondary */
+  --purple: #7b61ff;
+  --purple-subtle: rgba(123, 97, 255, 0.08);
+  --purple-muted: rgba(123, 97, 255, 0.2);
+
+  /* Semantic */
+  --success: #00e68a;
+  --warning: #f0b429;
+  --danger: #ff5c5c;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Glow / shadow */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-default);
+  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-default);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-root);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1e2236 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #1e2236;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #2a2e42;
+}
+
+/* ── Surface Cards ───────────────────────────────────── */
+
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.card-glow {
+  position: relative;
+}
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(0,230,138,0.06) 0%, transparent 50%, rgba(123,97,255,0.04) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Animations ──────────────────────────────────────── */
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 12px 2px var(--accent-glow); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out both;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.25s ease-out both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Monospace for stats ─────────────────────────────── */
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ── React Flow Overrides ────────────────────────────── */
+
+.react-flow__attribution {
+  display: none !important;
+}
+
+.react-flow__controls {
+  border-radius: var(--radius-md) !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-default) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.react-flow__controls button {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-default) !important;
+  color: var(--text-muted) !important;
+  fill: var(--text-muted) !important;
+}
+
+.react-flow__controls button:hover {
+  background: #1e2236 !important;
+  color: var(--text-primary) !important;
+  fill: var(--text-primary) !important;
+}
+
+.react-flow__minimap {
+  background: var(--bg-surface) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+/* ── Overlay ─────────────────────────────────────────── */
+
+.overlay-backdrop {
+  background: rgba(4, 6, 14, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── Range input ─────────────────────────────────────── */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--border-default);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-surface);
+  box-shadow: 0 0 8px var(--accent-glow);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-surface);
+  box-shadow: 0 0 8px var(--accent-glow);
+  cursor: pointer;
+}
+
+/* ── Select ──────────────────────────────────────────── */
+
+select {
+  color-scheme: dark;
+}
+
+/* ── Accent button glow ──────────────────────────────── */
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, #00cc7a 100%);
+  color: #080a12;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 2px 12px var(--accent-glow);
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.btn-accent:hover {
+  box-shadow: 0 4px 20px rgba(0, 230, 138, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--text-faint);
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+/* ── Enhance: node-inspector fade ────────────────────── */
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ── Stitch-inspired: frosted glass ──────────────────── */
+
+.glass {
+  background: rgba(14, 16, 25, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ── Stitch-inspired: green gradient text ──────────────── */
+
+.text-gradient-green {
+  background: linear-gradient(135deg, var(--accent), #00cc7a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Stitch-inspired: subtle hover lift ──────────────── */
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Status dot pulse ────────────────────────────────── */
+
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 8px 3px var(--accent-glow); }
+}
+
+.status-dot-pulse {
+  animation: status-pulse 2.5s ease-in-out infinite;
+}
